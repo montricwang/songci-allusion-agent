@@ -1,0 +1,43 @@
+import pandas as pd
+import re
+
+INPUT_FILE = "raw_data/Poetry/唐.csv"
+OUTPUT_FILE = "tang_sentences.csv"
+
+def split_sentences(text: str):
+    if not isinstance(text, str):
+        return []
+    text = text.strip()
+    if not text:
+        return []
+    parts = re.split(r"[，。！？；]", text)
+    return [p.strip() for p in parts if p.strip()]
+
+def main():
+    df = pd.read_csv(INPUT_FILE)
+    rows = []
+    sentence_id = 0
+
+    for _, row in df.iterrows():
+        title = str(row["题目"]).strip()
+        dynasty = str(row["朝代"]).strip()
+        author = str(row["作者"]).strip()
+        content = row["内容"]
+
+        sentences = split_sentences(content)
+        for sent in sentences:
+            rows.append({
+                "sentence_id": sentence_id,
+                "sentence": sent,
+                "title": title,
+                "dynasty": dynasty,
+                "author": author,
+            })
+            sentence_id += 1
+
+    out_df = pd.DataFrame(rows)
+    out_df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")
+    print(f"Done. Saved {len(out_df)} sentences to {OUTPUT_FILE}")
+
+if __name__ == "__main__":
+    main()
