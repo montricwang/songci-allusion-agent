@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import torch
 from transformers import BertModel, BertTokenizer
-from tqdm import tqdm  # 这是一个带百分比进度条的库，建议 pip install tqdm
+from tqdm import tqdm
 from pathlib import Path
 
 # --- 1. 环境准备与路径定位 ---
@@ -10,24 +10,22 @@ from pathlib import Path
 # .resolve() 拿到绝对路径
 # .parent 拿到 src 文件夹，再点一次 .parent 拿到项目根目录
 ROOT_DIR = Path(__file__).resolve().parent.parent
-
-# 2. 直接使用斜杠 / 拼接路径（这是 pathlib 的魔法，非常直观）
 MODEL_PATH = ROOT_DIR / "models" / "bert-ccpoem"
 INPUT_CSV = ROOT_DIR / "data" / "tang_sentences.csv"
 OUTPUT_NPY = ROOT_DIR / "data" / "tang_vectors.npy"
 
-# --- 2. 加载“翻译官” (BERT) ---
+# --- 2. 加载模型 ---
 print("正在加载模型，请稍候...")
 tokenizer = BertTokenizer.from_pretrained(MODEL_PATH)
 model = BertModel.from_pretrained(MODEL_PATH)
-model.eval()  # 设置为评价模式（不训练，只用它来转换向量）
+model.eval()  # 设置为评价模式
 
 # --- 3. 准备数据 ---
 df = pd.read_csv(INPUT_CSV)
 sentences = df["sentence"].tolist()
 
 
-# --- 4. 批量处理函数 (核心) ---
+# --- 4. 批量处理函数 ---
 def get_batch_vectors(text_list):
     # 将文本转为模型能看懂的数字 ID
     inputs = tokenizer(
@@ -48,7 +46,7 @@ def get_batch_vectors(text_list):
 
 
 # --- 5. 开始循环处理 ---
-batch_size = 32  # 每次处理 32 句，就像去超市结账一次刷 32 件商品
+batch_size = 32  # 每次处理 32 句
 all_vectors = []
 
 print(f"开始生成向量，总计 {len(sentences)} 句...")
