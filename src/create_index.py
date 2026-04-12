@@ -4,8 +4,8 @@ from pathlib import Path
 
 # 路径设置
 ROOT_DIR = Path(__file__).resolve().parent.parent
-NPY_PATH = ROOT_DIR / "data" / "tang_vectors.npy"
-INDEX_SAVE_PATH = ROOT_DIR / "data" / "tang_poetry.index"
+NPY_PATH = ROOT_DIR / "data" / "quansongci_vectors.npy"
+INDEX_SAVE_PATH = ROOT_DIR / "data" / "quansongci_poetry.index"
 
 # 1. 加载向量 (float32 是 FAISS 的标配)
 print("正在读取向量数据...")

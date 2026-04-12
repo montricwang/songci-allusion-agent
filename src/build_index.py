@@ -11,8 +11,8 @@ from pathlib import Path
 # .parent 拿到 src 文件夹，再点一次 .parent 拿到项目根目录
 ROOT_DIR = Path(__file__).resolve().parent.parent
 MODEL_PATH = ROOT_DIR / "models" / "bert-ccpoem"
-INPUT_CSV = ROOT_DIR / "data" / "tang_sentences.csv"
-OUTPUT_NPY = ROOT_DIR / "data" / "tang_vectors.npy"
+INPUT_CSV = ROOT_DIR / "data" / "quansongci_sentences.csv"
+OUTPUT_NPY = ROOT_DIR / "data" / "quansongci_vectors.npy"
 
 # --- 2. 加载模型 ---
 print("正在加载模型，请稍候...")
