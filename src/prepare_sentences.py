@@ -1,8 +1,11 @@
 import pandas as pd
 import re
+from pathlib import Path
 
-INPUT_FILE = "raw_data/Poetry/唐.csv"
-OUTPUT_FILE = "tang_sentences.csv"
+# --- 常量与路径 ---
+ROOT_DIR = Path(__file__).resolve().parent.parent
+INPUT_FILE = ROOT_DIR / "raw_data" / "Poetry" / "唐.csv"
+OUTPUT_FILE = ROOT_DIR / "data" / "tang_sentences.csv"
 
 def split_sentences(text: str):
     if not isinstance(text, str):
