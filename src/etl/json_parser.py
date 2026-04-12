@@ -5,7 +5,14 @@ from typing import List, Dict
 import opencc
 
 
-class CiJSONParser:
+class JsonParser:
+    """
+    将 JSON 数据转换为原子句数据
+    Args:
+        entry: 诗词数据
+    Returns:
+        atoms: 原子句数据
+    """
     def __init__(self):
         # t2s: 繁体转简体（中国大陆标准）
         self.converter = opencc.OpenCC("t2s")
@@ -72,7 +79,7 @@ if __name__ == "__main__":
         "rhythmic": "木兰花",
     }
 
-    parser = CiJSONParser()
+    parser = JsonParser()
     results = parser.parse_entry(test_entry)
 
     print(f"\n{'=' * 20} ETL 解析完整输出 {'=' * 20}\n")
