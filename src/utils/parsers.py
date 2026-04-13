@@ -1,5 +1,4 @@
 import pandas as pd
-import json
 import re
 import hashlib
 import opencc
@@ -66,7 +65,7 @@ class CSVParser(BaseParser):
                     "dynasty": dynasty,
                     "content": content,
                     "source": "Poetry",
-                    "genre": "诗",
+                    # "genre": "诗",
                     "work_id": work_id,
                 }
             )
@@ -86,7 +85,7 @@ class JsonParser(BaseParser):
         for entry in json_data:
             author = self.clean_text(entry["author"])
             rhythmic = self.clean_text(entry["rhythmic"])
-            content = "".join(self.clean_text(entry["paragraphs"]))
+            content = self.clean_text("".join(entry["paragraphs"]))
             work_id = self.generate_id(author, rhythmic, content)
 
             works.append(

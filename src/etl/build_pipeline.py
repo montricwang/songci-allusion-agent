@@ -5,13 +5,13 @@ import faiss
 from transformers import BertModel, BertTokenizer
 from tqdm import tqdm
 from pathlib import Path
+from src.utils.config import DATA_DIR, MODEL_DIR
 
 # --- 配置区 ---
-ROOT_DIR = Path(__file__).resolve().parent.parent
-MODEL_PATH = ROOT_DIR / "models" / "bert-ccpoem"
-INPUT_CSV = ROOT_DIR / "data" / "quansongci_sentences.csv"
-OUTPUT_NPY = ROOT_DIR / "data" / "quansongci_vectors.npy"
-INDEX_PATH = ROOT_DIR / "data" / "quansongci.index"
+MODEL_PATH = MODEL_DIR / "bert-ccpoem"
+INPUT_CSV = DATA_DIR / "unified_sentences.csv"
+OUTPUT_NPY = DATA_DIR / "unified_vectors.npy"
+INDEX_PATH = DATA_DIR / "unified_sentences.index"
 
 # 自动选择设备 (如果有英伟达显卡就用 GPU)
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -49,7 +49,7 @@ def encode_sentences(csv_path: Path, batch_size: int = 32):
             all_vectors.append(embeddings.cpu().numpy())
 
     final_matrix = np.vstack(all_vectors).astype("float32")
-    # 存一份 .npy 做备份是好习惯，方便以后换索引方式不需要重新推理
+    # 存一份 .npy 做备份
     np.save(OUTPUT_NPY, final_matrix)
     return final_matrix
 

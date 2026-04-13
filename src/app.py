@@ -3,21 +3,20 @@ import faiss
 import pandas as pd
 import torch
 from transformers import BertModel, BertTokenizer
-from pathlib import Path
+from src.utils.config import MODEL_DIR, RAW_DATA_DIR
 
 # --- 页面配置 ---
-st.set_page_config(page_title="全宋词语义搜索引擎", layout="wide")
-st.title("🏮 全宋词语义搜索引擎")
-st.markdown("基于 `BERT-ccpoem` 与 `FAISS` 的全宋词向量检索系统")
+st.set_page_config(page_title="唐诗宋词语义搜索引擎", layout="wide")
+st.title("🏮 唐诗宋词语义搜索引擎")
+st.markdown("基于 `BERT-ccpoem` 与 `FAISS` 的诗词向量检索系统")
 
 # --- 常量与路径 ---
-ROOT_DIR = Path(__file__).resolve().parent.parent
-MODEL_PATH = ROOT_DIR / "models" / "bert-ccpoem"
-CSV_PATH = ROOT_DIR / "data" / "tang_sentences.csv"
-INDEX_PATH = ROOT_DIR / "data" / "tang_poetry.index"
+MODEL_PATH = MODEL_DIR / "bert-ccpoem"
+CSV_PATH = RAW_DATA_DIR /  "unified_sentences.csv"
+INDEX_PATH = RAW_DATA_DIR / "unified_sentences.index"
 
 
-# --- 缓存加载逻辑 (避免每次刷新页面都重载模型) ---
+# --- 缓存加载逻辑 ---
 @st.cache_resource
 def load_resources():
     st.info("正在加载语义模型与向量库，请稍候...")
