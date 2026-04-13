@@ -13,8 +13,8 @@ st.markdown("基于 `BERT-ccpoem` 与 `FAISS` 的全宋词向量检索系统")
 # --- 常量与路径 ---
 ROOT_DIR = Path(__file__).resolve().parent.parent
 MODEL_PATH = ROOT_DIR / "models" / "bert-ccpoem"
-CSV_PATH = ROOT_DIR / "data" / "quansongci_sentences.csv"
-INDEX_PATH = ROOT_DIR / "data" / "quansongci_poetry.index"
+CSV_PATH = ROOT_DIR / "data" / "tang_sentences.csv"
+INDEX_PATH = ROOT_DIR / "data" / "tang_poetry.index"
 
 
 # --- 缓存加载逻辑 (避免每次刷新页面都重载模型) ---
@@ -66,6 +66,6 @@ if query:
                 # 距离越小，相似度越高，这里简单转换一下显示
                 st.metric("相似度得分", f"{dist:.2f}")
             with col2:
-                st.markdown(f"### {row['content']}")
+                st.markdown(f"### {row['sentence']}")
                 st.caption(f"—— {row['author']} · 《{row['title']}》")
             st.divider()
