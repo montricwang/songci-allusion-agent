@@ -3,12 +3,12 @@ from pathlib import Path
 
 # --- 基础路径定位 ---
 # 自动定位项目根目录 (config.py 在 ./src/utils 目录下)
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 # --- 数据与模型路径 ---
-RAW_DATA_DIR = BASE_DIR / "raw_data"
-DATA_DIR = BASE_DIR / "data"
-MODEL_DIR = BASE_DIR / "models"
+RAW_DATA_DIR = ROOT_DIR / "raw_data"
+DATA_DIR = ROOT_DIR / "data"
+MODEL_DIR = ROOT_DIR / "models"
 
 # 具体文件路径
 PROCESSED_CSV = DATA_DIR / "unified_poetry.csv"
