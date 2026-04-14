@@ -7,6 +7,7 @@ env/
 data/
 raw_data/
 models/
+parsed_json/
 *.csv
 *.npy
 *.index
